@@ -37,44 +37,52 @@ public class LoggerPadrao {
 	public static void info(String mensagem, Object ... args){
 		logInfo.info(mensagem, args);
 		sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 	
 	public static void info(String mensagem){
 		logInfo.info(mensagem);
 		sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 	
 	public static void transacao(String mensagem){
 		logTransacao.info("loggerTransacao - "+mensagem);
 		sentry.sendMessage("loggerTransacao - "+mensagem);
+		Sentry.capture("loggerTransacao - "+mensagem);
 	}
 	
 	public static void debug(String mensagem, Object ... args){
 		logDebug.debug(mensagem, args);
 		sentry.sendMessage("debug - "+mensagem);
+		Sentry.capture("debug - "+mensagem);
 	}
 	
 	public static void debug(String mensagem, long time){
 		long timeMilis = System.currentTimeMillis() - time;
 		logDebug.debug(mensagem+ " - "+ timeMilis +" ms");
 		sentry.sendMessage("debug - "+mensagem+ " - "+ timeMilis +" ms");
+		Sentry.capture("debug - "+mensagem+ " - "+ timeMilis +" ms");
 	}
 	
 
 	public static void error(String mensagem, Exception e) {
 		logErro.error(mensagem, e);
 		sentry.sendException(e);
+		Sentry.capture(e);
 	}
 
 	public static void error(String string) {
 		logErro.error(string);
 		sentry.sendMessage("error - " + string);
+		Sentry.capture("error - "+string);
 	}
 	
 	public static void info(String mensagem, long time, Object ... args){
 		long timeMilis = System.currentTimeMillis() - time;
 		logInfo.info(mensagem+" - "+ timeMilis +" ms", args);
 		sentry.sendMessage(mensagem+ " - "+ timeMilis +" ms");
+		Sentry.capture(mensagem+ " - "+ timeMilis +" ms");
 	}
 	
 	public static void info(String mensagem, long time){
@@ -87,27 +95,32 @@ public class LoggerPadrao {
 		long timeMilis = System.currentTimeMillis() - time;
 		logTransacao.info("loggerTransacao - "+mensagem+" - "+timeMilis+" ms");
 		sentry.sendMessage("loggerTransacao - "+mensagem+ " - "+ timeMilis +" ms");
+		Sentry.capture("loggerTransacao - "+mensagem+ " - "+ timeMilis +" ms");
 	}
 	
 	public static void debug(String mensagem, long time, Object ... args){
 		long timeMilis = System.currentTimeMillis() - time;
 		logDebug.debug(mensagem+" - "+timeMilis+" ms", args);
 		sentry.sendMessage("debug - "+mensagem+ " - "+ timeMilis +" ms");
+		Sentry.capture("debug - "+mensagem+ " - "+ timeMilis +" ms");
 	}
 
 	public static void error(String mensagem, Exception e, long time) {
 		logErro.error(mensagem+" - "+(System.currentTimeMillis()-time)+" ms", e);
 		sentry.sendException(e);
+		Sentry.capture(e);
 	}
 
 	public static void error(String string, long time) {
 		long timeMilis = System.currentTimeMillis() - time;
 		logErro.error(string+" - "+timeMilis+" ms");
 		sentry.sendMessage("error - "+string+ " - "+ timeMilis +" ms");
+		Sentry.capture("error - "+string+ " - "+ timeMilis +" ms");
 	}
 	
 	public static void startApplication(String mensagem, Object ... args){
 		logInfoStartApplication.info(mensagem, args);
 		sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 }
