@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.hermes.hermeswp.util.LoggerPadrao;
 import br.com.unipe.domain.Example;
+import br.com.unipe.util.LoggerPadrao;
 
 @Service
 public class ExampleService {
