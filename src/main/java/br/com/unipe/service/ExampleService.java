@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.hermes.hermeswp.util.LoggerPadrao;
 import br.com.unipe.domain.Example;
 
 @Service
@@ -16,9 +17,11 @@ public class ExampleService {
 		
 		if(!containsName(example.getNome())) {
 			lista.add(example);
+			LoggerPadrao.info(String.format("Exemplo %s cadastrado com sucesso!",example.getNome()));
 			return example;
 		}
 		
+		LoggerPadrao.error(String.format("Exemplo com nome %s já existe!", example.getNome()));
 		throw new Exception("Example com nome " + example.getNome() + " já existe");
 	}
 	
