@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import io.sentry.Sentry;
 import io.sentry.SentryClient;
 import io.sentry.SentryClientFactory;
+import io.sentry.context.Context;
+import io.sentry.event.BreadcrumbBuilder;
+import io.sentry.event.UserBuilder;
 
 public class LoggerPadrao {
 	
@@ -18,8 +21,17 @@ public class LoggerPadrao {
 	private static SentryClient sentry;
 	
 	static {
-		Sentry.init("https://2c6899efa10944bd8f696a14763fcc1f@sentry.io/1238319");
-		sentry = SentryClientFactory.sentryClient();		
+		Sentry.init("https://1a1675e5779e490095a5f864b214044d@sentry.io/1238967");
+		sentry = SentryClientFactory.sentryClient();
+		
+		// Retrieve the current context.
+        Context context = sentry.getContext();
+
+        // Record a breadcrumb in the current context. By default the last 100 breadcrumbs are kept.
+        context.recordBreadcrumb(new BreadcrumbBuilder().setMessage("Iniciando a action do usuário...").build());
+
+        // Set the user in the current context.
+        context.setUser(new UserBuilder().setEmail("1a1675e5779e490095a5f864b214044d@sentry.io").build());
 	}
 	
 	public static void info(String mensagem, Object ... args){
